@@ -313,7 +313,7 @@ function Login() {
                     <div className="login-footer">
 
                         <span>
-                            © 2024 GYM TECH SYSTEMS
+                            © 2026 GYM TECH SYSTEMS
                         </span>
 
 
