@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
 
@@ -198,9 +199,9 @@ function Login() {
                                 </label>
 
 
-                                <a href="#">
+                                <Link to="/esqueceu-senha">
                                     Esqueceu a senha?
-                                </a>
+                                </Link>
 
                             </div>
 
@@ -297,9 +298,9 @@ function Login() {
 
                             Novo por aqui?
 
-                            <a href="#">
+                            <Link to="/cadastro">
                                 Criar conta
-                            </a>
+                            </Link>
 
                         </p>
 
