@@ -1,38 +1,61 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 import ForgotPassword from "../pages/forgot-password/forgot-password";
-import Dashboard from "../pages/dashboard/dashboard";
+
+import DashboardAluno from "../pages/dashboard/dashboard-aluno";
+import DashboardProfissional from "../pages/dashboard/dashboard-profissional";
+import DashboardAcademia from "../pages/dashboard/dashboard-academia";
 
 import PrivateRoute from "./privateRoute";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
-
       <Routes>
 
+        {/* Páginas públicas */}
         <Route path="/" element={<Login />} />
-
         <Route path="/login" element={<Login />} />
-
         <Route path="/cadastro" element={<Register />} />
-
         <Route path="/esqueceu-senha" element={<ForgotPassword />} />
 
-        {/* Dashboard do cliente: somente perfil "cliente" */}
+        {/* Dashboard do aluno */}
         <Route
-          path="/dashboard"
+          path="/dashboard-aluno"
           element={
-            <PrivateRoute allowedRoles={["cliente"]}>
-              <Dashboard />
+            <PrivateRoute allowedRoles={["aluno"]}>
+              <DashboardAluno />
             </PrivateRoute>
           }
         />
 
-      </Routes>
+        {/* Dashboard do profissional */}
+        <Route
+          path="/dashboard-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <DashboardProfissional />
+            </PrivateRoute>
+          }
+        />
 
+        {/* Dashboard da academia */}
+        <Route
+          path="/dashboard-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <DashboardAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Qualquer rota inexistente volta para o login */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+
+      </Routes>
     </BrowserRouter>
   );
 }
