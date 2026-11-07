@@ -1,8 +1,8 @@
-import Login from "./pages/login/login";
+import AppRoutes from "./routes/appRoutes";
 
 function App() {
     return (
-        <Login />
+        <AppRoutes />
     );
 }
 
