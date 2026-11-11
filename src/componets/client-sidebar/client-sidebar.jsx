@@ -1,46 +1,18 @@
 import "../client-sidebar/client-sidebar.css";
 import raioIcon from "../../assets/images/raio-icon.png";
 
-import {
-    LayoutDashboard,
-    Dumbbell,
-    CalendarCheck,
-    History,
-    TrendingUp,
-    Target,
-    CalendarPlus,
-    ClipboardList,
-    Bell,
-    UserRound,
-    LogOut
-} from "lucide-react";
-
+import { LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { logout } from "../../services/auth";
+import { menuAluno } from "./menus";
+
 
 // =========================
-// ITENS DO MENU
+// ITEM DO MENU
 // =========================
 // Itens com "to" navegam. Os sem "to" ainda não têm tela:
-// quando criar a página, é só adicionar o "to" dela.
-
-const mainItems = [
-    { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
-    { label: "Meu Treino", icon: Dumbbell },
-    { label: "Próximos Treinos", icon: CalendarCheck },
-    { label: "Histórico", icon: History },
-    { label: "Progresso", icon: TrendingUp },
-    { label: "Objetivos", icon: Target }
-];
-
-const secondaryItems = [
-    { label: "Agendar Aula", icon: CalendarPlus },
-    { label: "Avaliação Física", icon: ClipboardList },
-    { label: "Notificações", icon: Bell },
-    { label: "Perfil", icon: UserRound }
-];
-
+// quando criar a página, é só adicionar o "to" dela no menus.js.
 
 function SidebarItem({ item }) {
 
@@ -84,7 +56,13 @@ function SidebarItem({ item }) {
 }
 
 
-function ClientSidebar({ name, plan }) {
+// =========================
+// SIDEBAR
+// =========================
+// "menu" define os itens de cada perfil (aluno, profissional, academia).
+// Se não for passado, usa o menu do aluno.
+
+function ClientSidebar({ name, plan, menu = menuAluno }) {
 
     const navigate = useNavigate();
 
@@ -132,13 +110,13 @@ function ClientSidebar({ name, plan }) {
 
             <nav className="csb-nav">
 
-                {mainItems.map((item) => (
+                {menu.main.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
 
                 <div className="csb-divider"></div>
 
-                {secondaryItems.map((item) => (
+                {menu.secondary.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
 
