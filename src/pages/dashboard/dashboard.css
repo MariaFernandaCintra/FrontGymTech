@@ -819,3 +819,241 @@
         align-items: flex-start;
     }
 }
+
+/* =========================
+   KPIs
+========================= */
+
+.dash-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.dash-kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 20px;
+
+    border: 1px solid #1d1d1d;
+    border-radius: 20px;
+    background: #0f0f0f;
+}
+
+.dash-kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dash-kpi-top span {
+    color: #666666;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.dash-kpi-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #262626;
+    border-radius: 10px;
+    background: #111111;
+
+    color: #c6ff00;
+}
+
+.dash-kpi strong {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.dash-kpi small {
+    color: #7d7d7d;
+    font-size: 10px;
+}
+
+.dash-kpi small.up { color: #c6ff00; }
+.dash-kpi small.down { color: #ff5252; }
+
+
+/* =========================
+   LISTAS
+========================= */
+
+.dash-list {
+    margin-top: 16px;
+    padding: 0;
+
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dash-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dash-list-time {
+    width: 46px;
+
+    color: #c6ff00;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dash-list-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dash-list-info strong {
+    font-size: 12px;
+}
+
+.dash-list-info span {
+    color: #7d7d7d;
+    font-size: 10px;
+}
+
+.dash-avatar-sm {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #1a1a1a;
+
+    color: #c6ff00;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   BARRA DE PROGRESSO
+========================= */
+
+.dash-bar {
+    height: 6px;
+
+    border-radius: 99px;
+    background: #1d1d1d;
+
+    overflow: hidden;
+}
+
+.dash-bar > span {
+    display: block;
+    height: 100%;
+
+    border-radius: 99px;
+    background: #c6ff00;
+}
+
+
+/* =========================
+   BADGE
+========================= */
+
+.dash-badge {
+    padding: 4px 9px;
+
+    border-radius: 99px;
+    background: #1a1a1a;
+
+    color: #c6ff00;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.dash-badge.warn { color: #ffb300; }
+.dash-badge.danger { color: #ff5252; }
+
+
+@media (max-width: 1100px) {
+    .dash-kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   GRÁFICO DE BARRAS
+========================= */
+
+.dash-chart {
+    height: 190px;
+
+    margin-top: 20px;
+
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.dash-chart-col {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.dash-chart-col strong {
+    color: #7d7d7d;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.dash-chart-track {
+    flex: 1;
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.dash-chart-bar {
+    width: 100%;
+    min-height: 3px;
+
+    border-radius: 6px 6px 0 0;
+    background: #222222;
+}
+
+.dash-chart-col.current strong {
+    color: #c6ff00;
+}
+
+.dash-chart-col.current .dash-chart-bar {
+    background: #c6ff00;
+}
+
+.dash-chart-col span {
+    color: #666666;
+    font-size: 9px;
+    font-weight: 600;
+}
