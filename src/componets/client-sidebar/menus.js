@@ -17,7 +17,8 @@ import {
     Building2
 } from "lucide-react";
 
-// Itens com "to" navegam. Os sem "to" ainda não têm tela.
+// Itens com "to" navegam. Os sem "to" ainda não têm tela:
+// quando criar a página, é só adicionar o "to" dela.
 
 export const menuAluno = {
     main: [
@@ -40,7 +41,7 @@ export const menuProfissional = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-profissional" },
         { label: "Meus Alunos", icon: Users },
-        { label: "Treinos", icon: Dumbbell },
+        { label: "Treinos", icon: Dumbbell, to: "/treinos-profissional" },
         { label: "Agenda", icon: CalendarCheck },
         { label: "Avaliações", icon: ClipboardList },
         { label: "Evolução", icon: TrendingUp }

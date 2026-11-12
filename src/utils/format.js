@@ -19,3 +19,31 @@ export function hojeISO() {
 
     return `${d.getFullYear()}-${mes}-${dia}`;
 }
+
+// "2026-11-12" -> "12/11/2026"
+export function formatarDataCompleta(iso) {
+
+    if (!iso) return "Sem data";
+
+    const [ano, mes, dia] = iso.split("-");
+
+    return `${dia}/${mes}/${ano}`;
+}
+
+
+// "00:01:30" -> "1min30s"
+export function formatarDescanso(tempo) {
+
+    if (!tempo) return null;
+
+    const [h, m, s] = tempo.split(":").map(Number);
+
+    const total = h * 3600 + m * 60 + (s || 0);
+
+    const min = Math.floor(total / 60);
+    const seg = total % 60;
+
+    if (min === 0) return `${seg}s`;
+
+    return seg === 0 ? `${min}min` : `${min}min${String(seg).padStart(2, "0")}s`;
+}
