@@ -26,8 +26,8 @@ import { logout } from "../../services/auth";
 // quando criar a página, é só adicionar o "to" dela.
 
 const mainItems = [
-    { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
-    { label: "Meu Treino", icon: Dumbbell },
+    { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
+    { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
     { label: "Próximos Treinos", icon: CalendarCheck },
     { label: "Histórico", icon: History },
     { label: "Progresso", icon: TrendingUp },
@@ -38,7 +38,7 @@ const secondaryItems = [
     { label: "Agendar Aula", icon: CalendarPlus },
     { label: "Avaliação Física", icon: ClipboardList },
     { label: "Notificações", icon: Bell },
-    { label: "Perfil", icon: UserRound }
+    { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
 ];
 
 

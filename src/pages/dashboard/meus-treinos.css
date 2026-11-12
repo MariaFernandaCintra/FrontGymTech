@@ -1,0 +1,390 @@
+
+/* =========================
+   PÁGINA
+========================= */
+
+.meus-treinos-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #080808;
+    color: #ffffff;
+}
+
+.meus-treinos-content {
+    flex: 1;
+    padding: 28px 32px 40px;
+    min-width: 0;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.meus-treinos-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1d1d1d;
+}
+
+.meus-treinos-header h1 {
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.meus-treinos-header p {
+    color: #7d7d7d;
+    font-size: 11px;
+}
+
+
+/* =========================
+   LISTA DE TREINOS
+========================= */
+
+.treinos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.treino-card {
+    position: relative;
+    overflow: hidden;
+
+    background: #0f0f0f;
+
+    border: 1px solid #1d1d1d;
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.treino-card::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #c6ff00;
+    opacity: 0.8;
+}
+
+.treino-card:hover {
+    transform: translateY(-4px);
+    border-color: #3b4a13;
+    box-shadow: 0 8px 24px rgba(198, 255, 0, 0.07);
+}
+
+.treino-card:focus-visible {
+    outline: 2px solid #c6ff00;
+    outline-offset: 3px;
+}
+
+.treino-card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.treino-card-topo h2 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.treino-status {
+    background: #222a0a;
+    color: #c6ff00;
+
+    padding: 6px 11px;
+
+    border: 1px solid #39451a;
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.treino-card-info {
+    padding-top: 16px;
+    border-top: 1px solid #1f1f1f;
+}
+
+.treino-card-info p {
+    color: #777777;
+    font-size: 11px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.treino-card-info strong {
+    color: #d5d5d5;
+    font-weight: 600;
+}
+
+.treino-ver-detalhes {
+    display: block;
+
+    margin-top: 20px;
+
+    color: #c6ff00;
+    font-size: 10px;
+    font-weight: 800;
+
+    transition: 0.2s;
+}
+
+.treino-card:hover .treino-ver-detalhes {
+    color: #d4ff38;
+}
+
+
+/* =========================
+   MENSAGENS
+========================= */
+
+.treinos-mensagem {
+    color: #777777;
+    padding: 20px 0;
+    font-size: 12px;
+}
+
+.treinos-erro {
+    color: #ff5555;
+}
+
+.treinos-vazio {
+    background: #0f0f0f;
+
+    border: 1px solid #1d1d1d;
+    border-radius: 18px;
+
+    padding: 40px 25px;
+
+    text-align: center;
+}
+
+.treinos-vazio h2 {
+    font-size: 18px;
+    color: #c6ff00;
+    margin-bottom: 10px;
+}
+
+.treinos-vazio p {
+    color: #777777;
+    font-size: 11px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.treino-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    z-index: 9999;
+
+    backdrop-filter: blur(5px);
+}
+
+.treino-modal {
+    position: relative;
+
+    background: #0f0f0f;
+
+    width: 100%;
+    max-width: 520px;
+
+    border: 1px solid #292929;
+    border-top: 3px solid #c6ff00;
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+    animation: modalEntrada 0.2s ease;
+}
+
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.treino-modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 30px;
+    color: #777777;
+
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.treino-modal-fechar:hover {
+    color: #c6ff00;
+}
+
+.treino-modal-header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #262626;
+}
+
+.treino-modal-header span {
+    color: #c6ff00;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.treino-modal-header h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.treino-modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.treino-modal-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding-bottom: 12px;
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.treino-modal-info span {
+    color: #777777;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.treino-modal-info strong {
+    color: #e5e5e5;
+    font-size: 13px;
+}
+
+.treino-modal-status {
+    color: #c6ff00 !important;
+}
+
+.treino-modal-botao {
+    width: 100%;
+
+    margin-top: 25px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #c6ff00;
+
+    color: #000000;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.treino-modal-botao:hover {
+    background: #d4ff38;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 768px) {
+    .meus-treinos-content {
+        padding: 22px 18px 32px;
+    }
+
+    .meus-treinos-header h1 {
+        font-size: 25px;
+    }
+
+    .treinos-lista {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .treino-modal {
+        padding: 28px 22px;
+    }
+
+    .treino-modal-header h2 {
+        font-size: 21px;
+    }
+
+    .treino-card-topo {
+        flex-wrap: wrap;
+    }
+}
