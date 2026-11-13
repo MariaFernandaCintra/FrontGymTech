@@ -40,7 +40,7 @@ export const menuAluno = {
 export const menuProfissional = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-profissional" },
-        { label: "Meus Alunos", icon: Users },
+        { label: "Meus Alunos", icon: Users, to: "/alunos-profissional" },
         { label: "Treinos", icon: Dumbbell, to: "/treinos-profissional" },
         { label: "Agenda", icon: CalendarCheck },
         { label: "Avaliações", icon: ClipboardList },

@@ -2,34 +2,45 @@ import "../dashboard/dashboard.css";
 
 import ClientSidebar from "../../componets/client-sidebar/client-sidebar";
 import { menuProfissional } from "../../componets/client-sidebar/menus";
-import { profissionalMock } from "./dashboardProfissionalMock";
+import { useDashboardProfissional } from "../../hooks/useDashboardProfissional";
 
 import {
     Users,
-    CalendarCheck,
-    ClipboardList,
     Dumbbell,
-    Clock,
-    Bell,
-    TrendingUp
+    CalendarCheck,
+    CalendarDays,
+    Clock
 } from "lucide-react";
 
-import { getUser } from "../../services/auth";
 import { getInitials } from "../../utils/initials";
+import { formatarData } from "../../utils/format";
 
 function DashboardProfissional() {
 
-    const user = getUser();
-    const data = profissionalMock;
+    const { data, loading, error } = useDashboardProfissional();
 
-    const fullName = user?.nome || "Profissional";
-    const firstName = fullName.split(" ")[0];
+    if (loading) {
+        return <div className="dash-state">Carregando...</div>;
+    }
+
+    if (error) {
+        return <div className="dash-state error">{error}</div>;
+    }
+
+    const firstName = data.nome.split(" ")[0];
+
+    const { treinosHoje } = data.resumo;
+
+    const subtitulo =
+        treinosHoje === 0
+            ? "Nenhum treino programado para hoje."
+            : `Você tem ${treinosHoje} ${treinosHoje === 1 ? "treino programado" : "treinos programados"} para hoje.`;
 
     const kpis = [
-        { label: "ALUNOS ATIVOS", value: data.resumo.alunosAtivos, icon: Users, nota: "Total sob sua orientação" },
-        { label: "SESSÕES HOJE", value: data.resumo.sessoesHoje, icon: CalendarCheck, nota: "Agenda do dia" },
-        { label: "AVALIAÇÕES PENDENTES", value: data.resumo.avaliacoesPendentes, icon: ClipboardList, nota: "Aguardando você" },
-        { label: "TREINOS A REVISAR", value: data.resumo.treinosParaRevisar, icon: Dumbbell, nota: "Vencendo em breve" }
+        { label: "ALUNOS ATENDIDOS", value: data.resumo.alunos, icon: Users, nota: "Com treino ativo seu" },
+        { label: "TREINOS ATIVOS", value: data.resumo.treinosAtivos, icon: Dumbbell, nota: "Total cadastrado" },
+        { label: "TREINOS HOJE", value: data.resumo.treinosHoje, icon: CalendarCheck, nota: "Programados para hoje" },
+        { label: "SEM DATA", value: data.resumo.semData, icon: Clock, nota: "Ainda sem data programada" }
     ];
 
     return (
@@ -37,8 +48,8 @@ function DashboardProfissional() {
         <div className="dash-page">
 
             <ClientSidebar
-                name={fullName}
-                plan={data.plano}
+                name={data.nome}
+                plan="Profissional"
                 menu={menuProfissional}
             />
 
@@ -48,7 +59,7 @@ function DashboardProfissional() {
                 <header className="dash-header">
                     <div>
                         <h1>OLÁ, COACH {firstName.toUpperCase()}!</h1>
-                        <p className="dash-quote">{data.subtitulo}</p>
+                        <p className="dash-quote">{subtitulo}</p>
                     </div>
                 </header>
 
@@ -82,36 +93,44 @@ function DashboardProfissional() {
                 </div>
 
 
-                {/* AGENDA / ALUNOS EM ATENÇÃO */}
+                {/* TREINOS DE HOJE / PRÓXIMOS */}
                 <div className="dash-row">
 
                     <section className="dash-card">
 
                         <div className="dash-card-header">
                             <h3>
-                                <Clock size={14} />
-                                AGENDA DE HOJE
+                                <CalendarCheck size={14} />
+                                TREINOS DE HOJE
                             </h3>
-
-                            <button type="button" className="dash-link">
-                                VER AGENDA
-                            </button>
                         </div>
 
-                        <ul className="dash-list">
-                            {data.agendaHoje.map((item) => (
-                                <li key={item.id}>
+                        {data.treinosHoje.length === 0 ? (
 
-                                    <span className="dash-list-time">{item.hora}</span>
+                            <p className="dash-empty">
+                                Nenhum treino programado para hoje.
+                            </p>
 
-                                    <div className="dash-list-info">
-                                        <strong>{item.aluno}</strong>
-                                        <span>{item.tipo} • {item.local}</span>
-                                    </div>
+                        ) : (
 
-                                </li>
-                            ))}
-                        </ul>
+                            <ul className="dash-list">
+                                {data.treinosHoje.map((t) => (
+                                    <li key={t.id_treino}>
+
+                                        <div className="dash-avatar-sm">
+                                            {getInitials(t.nome_aluno)}
+                                        </div>
+
+                                        <div className="dash-list-info">
+                                            <strong>{t.titulo_treino}</strong>
+                                            <span>{t.nome_aluno}</span>
+                                        </div>
+
+                                    </li>
+                                ))}
+                            </ul>
+
+                        )}
 
                     </section>
 
@@ -120,17 +139,63 @@ function DashboardProfissional() {
 
                         <div className="dash-card-header">
                             <h3>
-                                <TrendingUp size={14} />
-                                ALUNOS EM ATENÇÃO
+                                <CalendarDays size={14} />
+                                PRÓXIMOS TREINOS
                             </h3>
-
-                            <button type="button" className="dash-link">
-                                VER TODOS
-                            </button>
                         </div>
 
+                        {data.proximos.length === 0 ? (
+
+                            <p className="dash-empty">
+                                Nenhum treino programado para os próximos dias.
+                            </p>
+
+                        ) : (
+
+                            <ul className="dash-list">
+                                {data.proximos.map((t) => (
+                                    <li key={t.id_treino}>
+
+                                        <span className="dash-list-time">
+                                            {formatarData(t.data_programada)}
+                                        </span>
+
+                                        <div className="dash-list-info">
+                                            <strong>{t.titulo_treino}</strong>
+                                            <span>{t.nome_aluno}</span>
+                                        </div>
+
+                                    </li>
+                                ))}
+                            </ul>
+
+                        )}
+
+                    </section>
+
+                </div>
+
+
+                {/* MEUS ALUNOS */}
+                <section className="dash-card">
+
+                    <div className="dash-card-header">
+                        <h3>
+                            <Users size={14} />
+                            MEUS ALUNOS
+                        </h3>
+                    </div>
+
+                    {data.alunos.length === 0 ? (
+
+                        <p className="dash-empty">
+                            Você ainda não tem treinos cadastrados para nenhum aluno.
+                        </p>
+
+                    ) : (
+
                         <ul className="dash-list">
-                            {data.alunosAtencao.map((aluno) => (
+                            {data.alunos.map((aluno) => (
                                 <li key={aluno.id}>
 
                                     <div className="dash-avatar-sm">
@@ -139,56 +204,23 @@ function DashboardProfissional() {
 
                                     <div className="dash-list-info">
                                         <strong>{aluno.nome}</strong>
-                                        <span>{aluno.motivo}</span>
-
-                                        <div className="dash-bar">
-                                            <span style={{ width: `${aluno.frequencia}%` }}></span>
-                                        </div>
+                                        <span>
+                                            {aluno.treinos}{" "}
+                                            {aluno.treinos === 1 ? "treino ativo" : "treinos ativos"}
+                                        </span>
                                     </div>
 
-                                    <span
-                                        className={
-                                            aluno.frequencia < 40
-                                                ? "dash-badge danger"
-                                                : "dash-badge warn"
-                                        }
-                                    >
-                                        {aluno.frequencia}%
+                                    <span className="dash-badge">
+                                        {aluno.proximo
+                                            ? `Próximo: ${formatarData(aluno.proximo)}`
+                                            : "Sem data"}
                                     </span>
 
                                 </li>
                             ))}
                         </ul>
 
-                    </section>
-
-                </div>
-
-
-                {/* NOTIFICAÇÕES */}
-                <section className="dash-card">
-
-                    <div className="dash-card-header">
-                        <h3 className="dash-white">
-                            <Bell size={14} />
-                            NOTIFICAÇÕES
-                        </h3>
-                    </div>
-
-                    <ul className="dash-notifications">
-                        {data.notificacoes.map((item) => (
-                            <li key={item.id}>
-
-                                <span className={item.nova ? "dash-dot new" : "dash-dot"}></span>
-
-                                <div>
-                                    <strong>{item.titulo}</strong>
-                                    <span>{item.detalhe}</span>
-                                </div>
-
-                            </li>
-                        ))}
-                    </ul>
+                    )}
 
                 </section>
 
