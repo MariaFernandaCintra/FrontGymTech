@@ -1,26 +1,15 @@
 import "../client-sidebar/client-sidebar.css";
 import raioIcon from "../../assets/images/raio-icon.png";
 
-import {
-    LayoutDashboard,
-    Dumbbell,
-    CalendarCheck,
-    History,
-    TrendingUp,
-    Target,
-    CalendarPlus,
-    ClipboardList,
-    Bell,
-    UserRound,
-    LogOut
-} from "lucide-react";
-
+import { LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { logout } from "../../services/auth";
+import { menuAluno } from "./menus";
+
 
 // =========================
-// ITENS DO MENU
+// ITEM DO MENU
 // =========================
 // Itens com "to" navegam. Os sem "to" ainda não têm tela:
 // quando criar a página, é só adicionar o "to" dela.
@@ -84,7 +73,13 @@ function SidebarItem({ item }) {
 }
 
 
-function ClientSidebar({ name, plan }) {
+// =========================
+// SIDEBAR
+// =========================
+// "menu" define os itens de cada perfil (aluno, profissional, academia).
+// Se não for passado, usa o menu do aluno.
+
+function ClientSidebar({ name, plan, menu = menuAluno }) {
 
     const navigate = useNavigate();
 
@@ -132,13 +127,13 @@ function ClientSidebar({ name, plan }) {
 
             <nav className="csb-nav">
 
-                {mainItems.map((item) => (
+                {menu.main.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
 
                 <div className="csb-divider"></div>
 
-                {secondaryItems.map((item) => (
+                {menu.secondary.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
 

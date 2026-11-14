@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/login/login";
@@ -10,6 +9,8 @@ import DashboardProfissional from "../pages/dashboard/dashboard-profissional";
 import DashboardAcademia from "../pages/dashboard/dashboard-academia";
 import MeusTreinos from "../pages/dashboard/meus-treinos";
 import PerfilAluno from "../pages/dashboard/perfil-aluno";
+import TreinosProfissional from "../pages/treinos/treinos-profissional";
+import AlunosProfissional from "../pages/alunos/alunos-profissional";
 
 import PrivateRoute from "./privateRoute";
 
@@ -40,6 +41,26 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["profissional"]}>
               <DashboardProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Treinos do profissional */}
+        <Route
+          path="/treinos-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <TreinosProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Alunos do profissional */}
+        <Route
+          path="/alunos-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <AlunosProfissional />
             </PrivateRoute>
           }
         />
