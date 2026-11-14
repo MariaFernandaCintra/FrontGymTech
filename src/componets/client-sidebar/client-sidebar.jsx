@@ -12,7 +12,24 @@ import { menuAluno } from "./menus";
 // ITEM DO MENU
 // =========================
 // Itens com "to" navegam. Os sem "to" ainda não têm tela:
-// quando criar a página, é só adicionar o "to" dela no menus.js.
+// quando criar a página, é só adicionar o "to" dela.
+
+const mainItems = [
+    { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
+    { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
+    { label: "Próximos Treinos", icon: CalendarCheck },
+    { label: "Histórico", icon: History },
+    { label: "Progresso", icon: TrendingUp },
+    { label: "Objetivos", icon: Target }
+];
+
+const secondaryItems = [
+    { label: "Agendar Aula", icon: CalendarPlus },
+    { label: "Avaliação Física", icon: ClipboardList },
+    { label: "Notificações", icon: Bell },
+    { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
+];
+
 
 function SidebarItem({ item }) {
 

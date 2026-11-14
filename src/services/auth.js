@@ -19,6 +19,12 @@ export function getUser() {
     }
 }
 
+export function getToken() {
+    const user = getUser();
+
+    return user?.token || null;
+}
+
 export function logout() {
     try {
         localStorage.removeItem(STORAGE_KEY);

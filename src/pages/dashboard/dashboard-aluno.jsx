@@ -1,3 +1,6 @@
+
+import { useEffect, useState } from "react";
+
 import "../dashboard/dashboard.css";
 import heroImage from "../../assets/images/gym_bacground.png";
 
@@ -18,6 +21,7 @@ import {
 } from "lucide-react";
 
 import { getUser } from "../../services/auth";
+import api from "../../services/api";
 
 // =========================
 // ANEL DE PROGRESSO
@@ -26,30 +30,122 @@ import { getUser } from "../../services/auth";
 const RING_RADIUS = 52;
 const RING_LENGTH = 2 * Math.PI * RING_RADIUS;
 
+// =========================
+// FORMATAR DATA
+// =========================
+
+function formatarData(data) {
+    if (!data) return "Data não definida";
+
+    const [ano, mes, dia] = data.split("T")[0].split("-");
+
+    if (!ano || !mes || !dia) return data;
+
+    return `${dia}/${mes}/${ano}`;
+}
+
 function Dashboard() {
-
-    // =========================
-    // DADOS
-    // =========================
-
     const user = getUser();
 
-    const data = dashboardMock;
+    // =========================
+    // ESTADOS
+    // =========================
 
-    const fullName = user?.nome || "Cliente";
+    const [aluno, setAluno] = useState(null);
+    const [treinos, setTreinos] = useState([]);
+    const [carregando, setCarregando] = useState(true);
+    const [erro, setErro] = useState("");
+
+    // =========================
+    // DADOS DA API
+    // =========================
+
+    useEffect(() => {
+        async function carregarDashboard() {
+            setCarregando(true);
+            setErro("");
+
+            try {
+                const [resAluno, resTreinos] = await Promise.all([
+                    api.get("/usuarios/me"),
+                    api.get("/alunos/me/treinos", {
+                        params: {
+                            status: "Ativo"
+                        }
+                    })
+                ]);
+
+                setAluno(resAluno.data);
+
+                setTreinos(
+                    Array.isArray(resTreinos.data?.itens)
+                        ? resTreinos.data.itens
+                        : []
+                );
+
+            } catch (error) {
+                console.error("Erro ao carregar dashboard:", error);
+
+                setErro(
+                    error.response?.data?.detail ||
+                    "Não foi possível carregar os dados do dashboard."
+                );
+
+            } finally {
+                setCarregando(false);
+            }
+        }
+
+        carregarDashboard();
+    }, []);
+
+    // =========================
+    // INFORMAÇÕES DO ALUNO
+    // =========================
+
+    const fullName =
+        aluno?.nome ||
+        user?.nome ||
+        "Cliente";
+
     const firstName = fullName.split(" ")[0];
+
+    // =========================
+    // TREINO PRINCIPAL
+    // =========================
+
+    const treinoPrincipal = treinos[0];
+
+    // =========================
+    // PRÓXIMA SESSÃO
+    // =========================
+
+    const proximaSessao = treinoPrincipal
+        ? {
+            quando: formatarData(treinoPrincipal.data_programada),
+            hora: "",
+            treino: treinoPrincipal.titulo_treino,
+            coach: treinoPrincipal.nome_profissional || "Não informado"
+        }
+        : null;
+
+    // =========================
+    // PROGRESSO
+    // =========================
+
+    // Ainda utiliza os dados de exemplo até termos
+    // um endpoint de progresso semanal.
+
+    const data = dashboardMock;
 
     const percent = Math.round(
         (data.progresso.concluidos / data.progresso.meta) * 100
     );
 
-
     return (
-
         <div className="dash-page">
 
             <ClientSidebar name={fullName} plan={data.plano} />
-
 
             <main className="dash-main">
 
@@ -60,7 +156,6 @@ function Dashboard() {
                 <header className="dash-header">
 
                     <div>
-
                         <h1>
                             BOM TREINO, {firstName.toUpperCase()}!
                         </h1>
@@ -68,24 +163,17 @@ function Dashboard() {
                         <p className="dash-quote">
                             "{data.frase.texto}" — {data.frase.autor}
                         </p>
-
                     </div>
-
 
                     <div className="dash-status">
 
                         <div>
-
-                            <span>
-                                ESTADO ATUAL
-                            </span>
+                            <span>ESTADO ATUAL</span>
 
                             <strong>
-                                {data.estado}
+                                {carregando ? "CARREGANDO..." : data.estado}
                             </strong>
-
                         </div>
-
 
                         <div className="dash-status-icon">
                             <Flame size={18} />
@@ -95,6 +183,15 @@ function Dashboard() {
 
                 </header>
 
+                {/* =================================
+                    ERRO DA API
+                ================================= */}
+
+                {erro && (
+                    <div className="dash-card">
+                        <p>{erro}</p>
+                    </div>
+                )}
 
                 {/* =================================
                     TREINO SUGERIDO
@@ -111,92 +208,85 @@ function Dashboard() {
                             </span>
 
                             <span className="dash-place">
-
                                 <MapPin size={11} />
-
-                                {data.treinoSugerido.local}
-
+                                Academia
                             </span>
 
                         </div>
 
+                        {carregando ? (
+                            <h2>CARREGANDO TREINOS...</h2>
+                        ) : treinoPrincipal ? (
 
-                        <h2>
-                            {data.treinoSugerido.nome}
-                        </h2>
+                            <>
+                                <h2>
+                                    {treinoPrincipal.titulo_treino}
+                                </h2>
 
-                        <p className="dash-hero-group">
-                            {data.treinoSugerido.grupo}
-                        </p>
+                                <p className="dash-hero-group">
+                                    Profissional: {treinoPrincipal.nome_profissional || "Não informado"}
+                                </p>
 
+                                <div className="dash-hero-stats">
 
-                        <div className="dash-hero-stats">
+                                    <div className="dash-stat">
 
-                            <div className="dash-stat">
+                                        <div className="dash-stat-icon">
+                                            <ListChecks size={14} />
+                                        </div>
 
-                                <div className="dash-stat-icon">
-                                    <ListChecks size={14} />
+                                        <div>
+                                            <span>DATA PROGRAMADA</span>
+
+                                            <strong>
+                                                {formatarData(treinoPrincipal.data_programada)}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="dash-stat">
+
+                                        <div className="dash-stat-icon">
+                                            <Timer size={14} />
+                                        </div>
+
+                                        <div>
+                                            <span>STATUS</span>
+
+                                            <strong>
+                                                {treinoPrincipal.status || "Ativo"}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                                <div>
+                                <button type="button" className="dash-button">
+                                    <span>INICIAR TREINO</span>
+                                    <Play size={13} fill="currentColor" />
+                                </button>
+                            </>
 
-                                    <span>
-                                        EXERCÍCIOS
-                                    </span>
+                        ) : (
+                            <div>
+                                <h2>NENHUM TREINO CADASTRADO</h2>
 
-                                    <strong>
-                                        {String(data.treinoSugerido.exercicios).padStart(2, "0")}
-                                    </strong>
-
-                                </div>
-
+                                <p className="dash-hero-group">
+                                    Quando um profissional cadastrar um treino
+                                    para você, ele aparecerá aqui.
+                                </p>
                             </div>
-
-
-                            <div className="dash-stat">
-
-                                <div className="dash-stat-icon">
-                                    <Timer size={14} />
-                                </div>
-
-                                <div>
-
-                                    <span>
-                                        DURAÇÃO
-                                    </span>
-
-                                    <strong>
-                                        {data.treinoSugerido.duracao}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <button type="button" className="dash-button">
-
-                            <span>
-                                INICIAR TREINO
-                            </span>
-
-                            <Play size={13} fill="currentColor" />
-
-                        </button>
+                        )}
 
                     </div>
 
-
                     <div className="dash-hero-image">
-
                         <img src={heroImage} alt="Treino sugerido" />
-
                     </div>
 
                 </section>
-
 
                 {/* =================================
                     PROGRESSO / PRÓXIMA SESSÃO
@@ -234,12 +324,9 @@ function Dashboard() {
 
                         </div>
 
-
                         <div className="dash-progress-info">
 
-                            <h3>
-                                SEU PROGRESSO
-                            </h3>
+                            <h3>SEU PROGRESSO</h3>
 
                             <p>
                                 Você completou
@@ -251,10 +338,11 @@ function Dashboard() {
                                 treinos da sua meta semanal!
                             </p>
 
-
                             <div className="dash-segments">
 
-                                {Array.from({ length: data.progresso.meta }).map((_, index) => (
+                                {Array.from({
+                                    length: data.progresso.meta
+                                }).map((_, index) => (
 
                                     <span
                                         key={index}
@@ -273,7 +361,6 @@ function Dashboard() {
 
                     </section>
 
-
                     <section className="dash-card dash-session">
 
                         <div>
@@ -282,33 +369,32 @@ function Dashboard() {
                                 PRÓXIMA SESSÃO
                             </span>
 
+                            {carregando ? (
+                                <p>Carregando...</p>
+                            ) : proximaSessao ? (
 
-                            <p className="dash-session-time">
+                                <>
+                                    <p className="dash-session-time">
+                                        {proximaSessao.quando}
+                                    </p>
 
-                                {data.proximaSessao.quando}
+                                    <h3>
+                                        {proximaSessao.treino}
+                                    </h3>
 
-                                <span>
-                                    {data.proximaSessao.hora}
-                                </span>
+                                    <p className="dash-session-coach">
+                                        <User size={11} />
+                                        Coach: {proximaSessao.coach}
+                                    </p>
+                                </>
 
-                            </p>
-
-
-                            <h3>
-                                {data.proximaSessao.treino}
-                            </h3>
-
-
-                            <p className="dash-session-coach">
-
-                                <User size={11} />
-
-                                Coach: {data.proximaSessao.coach}
-
-                            </p>
+                            ) : (
+                                <p>
+                                    Você ainda não possui sessões programadas.
+                                </p>
+                            )}
 
                         </div>
-
 
                         <div className="dash-session-icon">
                             <CalendarDays size={22} />
@@ -317,7 +403,6 @@ function Dashboard() {
                     </section>
 
                 </div>
-
 
                 {/* =================================
                     AGENDAMENTOS / NOTIFICAÇÕES
@@ -330,11 +415,8 @@ function Dashboard() {
                         <div className="dash-card-header">
 
                             <h3>
-
                                 <Clock size={14} />
-
                                 PRÓXIMOS AGENDAMENTOS
-
                             </h3>
 
                             <button type="button" className="dash-link">
@@ -342,7 +424,6 @@ function Dashboard() {
                             </button>
 
                         </div>
-
 
                         {data.agendamentos.map((item) => (
 
@@ -352,12 +433,9 @@ function Dashboard() {
                                     <Leaf size={14} />
                                 </div>
 
-
                                 <div className="dash-appointment-info">
 
-                                    <strong>
-                                        {item.titulo}
-                                    </strong>
+                                    <strong>{item.titulo}</strong>
 
                                     <span>
                                         Instrutor: {item.instrutor}
@@ -365,16 +443,11 @@ function Dashboard() {
 
                                 </div>
 
-
                                 <div className="dash-appointment-time">
 
-                                    <strong>
-                                        {item.hora}
-                                    </strong>
+                                    <strong>{item.hora}</strong>
 
-                                    <span>
-                                        {item.dia}
-                                    </span>
+                                    <span>{item.dia}</span>
 
                                 </div>
 
@@ -384,21 +457,16 @@ function Dashboard() {
 
                     </section>
 
-
                     <section className="dash-card">
 
                         <div className="dash-card-header">
 
                             <h3 className="dash-white">
-
                                 <Bell size={14} />
-
                                 NOTIFICAÇÕES
-
                             </h3>
 
                         </div>
-
 
                         <ul className="dash-notifications">
 
@@ -414,16 +482,11 @@ function Dashboard() {
                                         }
                                     ></span>
 
-
                                     <div>
 
-                                        <strong>
-                                            {item.titulo}
-                                        </strong>
+                                        <strong>{item.titulo}</strong>
 
-                                        <span>
-                                            {item.detalhe}
-                                        </span>
+                                        <span>{item.detalhe}</span>
 
                                     </div>
 
