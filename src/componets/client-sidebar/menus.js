@@ -20,10 +20,11 @@ import {
 // Itens com "to" navegam. Os sem "to" ainda não têm tela:
 // quando criar a página, é só adicionar o "to" dela.
 
+
 export const menuAluno = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
-        { label: "Meu Treino", icon: Dumbbell },
+        { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
         { label: "Próximos Treinos", icon: CalendarCheck },
         { label: "Histórico", icon: History },
         { label: "Progresso", icon: TrendingUp },
@@ -33,9 +34,10 @@ export const menuAluno = {
         { label: "Agendar Aula", icon: CalendarPlus },
         { label: "Avaliação Física", icon: ClipboardList },
         { label: "Notificações", icon: Bell },
-        { label: "Perfil", icon: UserRound }
+        { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
     ]
 };
+
 
 export const menuProfissional = {
     main: [
