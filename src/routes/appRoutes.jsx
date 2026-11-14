@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/login/login";
@@ -8,9 +9,12 @@ import DashboardAluno from "../pages/dashboard/dashboard-aluno";
 import DashboardProfissional from "../pages/dashboard/dashboard-profissional";
 import DashboardAcademia from "../pages/dashboard/dashboard-academia";
 import MeusTreinos from "../pages/dashboard/meus-treinos";
+import HistoricoTreinos from "../pages/dashboard/historico-treinos";
 import PerfilAluno from "../pages/dashboard/perfil-aluno";
 import TreinosProfissional from "../pages/treinos/treinos-profissional";
 import AlunosProfissional from "../pages/alunos/alunos-profissional";
+import AgendamentoAula from "../pages/dashboard/agendamento-aula";
+import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
 
 import PrivateRoute from "./privateRoute";
 
@@ -85,6 +89,16 @@ function AppRoutes() {
           }
         />
 
+        {/* Histórico de Treinos */}
+        <Route
+          path="/historico-treinos"
+          element={
+            <PrivateRoute allowedRoles={["aluno"]}>
+              <HistoricoTreinos />
+            </PrivateRoute>
+          }
+        />
+
         {/* Perfil do aluno */}
         <Route
           path="/perfil-aluno"
@@ -93,6 +107,16 @@ function AppRoutes() {
               <PerfilAluno />
             </PrivateRoute>
           }
+        />
+
+        <Route
+          path="/agendamento-aula"
+          element={<AgendamentoAula />}
+        />
+
+        <Route
+          path="/avaliacao-fisica"
+          element={<AvaliacaoFisica />}
         />
 
         {/* Qualquer rota inexistente volta para o login */}

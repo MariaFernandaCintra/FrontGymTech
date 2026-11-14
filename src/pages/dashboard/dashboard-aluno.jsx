@@ -13,8 +13,6 @@ import {
     ListChecks,
     Timer,
     Play,
-    User,
-    CalendarDays,
     Clock,
     Leaf,
     Bell
@@ -42,6 +40,16 @@ function formatarData(data) {
     if (!ano || !mes || !dia) return data;
 
     return `${dia}/${mes}/${ano}`;
+}
+
+function obterDataHoje() {
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoje.getDate()).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
 }
 
 function Dashboard() {
@@ -114,20 +122,20 @@ function Dashboard() {
     // TREINO PRINCIPAL
     // =========================
 
-    const treinoPrincipal = treinos[0];
+    const hoje = obterDataHoje();
 
-    // =========================
-    // PRÓXIMA SESSÃO
-    // =========================
+    const treinosFuturos = treinos
+        .filter((treino) => {
+            if (!treino.data_programada) return false;
 
-    const proximaSessao = treinoPrincipal
-        ? {
-            quando: formatarData(treinoPrincipal.data_programada),
-            hora: "",
-            treino: treinoPrincipal.titulo_treino,
-            coach: treinoPrincipal.nome_profissional || "Não informado"
-        }
-        : null;
+            return treino.data_programada.slice(0, 10) >= hoje;
+        })
+        .sort((a, b) =>
+            a.data_programada.localeCompare(b.data_programada)
+        );
+
+    const treinoPrincipal = treinosFuturos[0];
+
 
     // =========================
     // PROGRESSO
@@ -292,7 +300,12 @@ function Dashboard() {
                     PROGRESSO / PRÓXIMA SESSÃO
                 ================================= */}
 
-                <div className="dash-row">
+
+                {/* =================================
+    PROGRESSO
+================================= */}
+
+                <div className="dash-row dash-row-progresso">
 
                     <section className="dash-card dash-progress">
 
@@ -361,48 +374,8 @@ function Dashboard() {
 
                     </section>
 
-                    <section className="dash-card dash-session">
-
-                        <div>
-
-                            <span className="dash-label">
-                                PRÓXIMA SESSÃO
-                            </span>
-
-                            {carregando ? (
-                                <p>Carregando...</p>
-                            ) : proximaSessao ? (
-
-                                <>
-                                    <p className="dash-session-time">
-                                        {proximaSessao.quando}
-                                    </p>
-
-                                    <h3>
-                                        {proximaSessao.treino}
-                                    </h3>
-
-                                    <p className="dash-session-coach">
-                                        <User size={11} />
-                                        Coach: {proximaSessao.coach}
-                                    </p>
-                                </>
-
-                            ) : (
-                                <p>
-                                    Você ainda não possui sessões programadas.
-                                </p>
-                            )}
-
-                        </div>
-
-                        <div className="dash-session-icon">
-                            <CalendarDays size={22} />
-                        </div>
-
-                    </section>
-
                 </div>
+
 
                 {/* =================================
                     AGENDAMENTOS / NOTIFICAÇÕES

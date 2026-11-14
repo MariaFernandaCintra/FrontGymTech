@@ -1,3 +1,4 @@
+
 import {
     LayoutDashboard,
     Dumbbell,
@@ -17,27 +18,18 @@ import {
     Building2
 } from "lucide-react";
 
-// Itens com "to" navegam. Os sem "to" ainda não têm tela:
-// quando criar a página, é só adicionar o "to" dela.
-
-
 export const menuAluno = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
         { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
-        { label: "Próximos Treinos", icon: CalendarCheck },
-        { label: "Histórico", icon: History },
-        { label: "Progresso", icon: TrendingUp },
-        { label: "Objetivos", icon: Target }
+        { label: "Histórico", icon: History, to: "/historico-treinos" }
     ],
     secondary: [
-        { label: "Agendar Aula", icon: CalendarPlus },
-        { label: "Avaliação Física", icon: ClipboardList },
-        { label: "Notificações", icon: Bell },
+        { label: "Agendar Aula", icon: CalendarPlus, to: "/agendamento-aula" },
+        { label: "Avaliação Física", icon: ClipboardList, to: "/avaliacao-fisica" },
         { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
     ]
 };
-
 
 export const menuProfissional = {
     main: [
