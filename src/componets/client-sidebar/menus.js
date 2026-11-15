@@ -14,19 +14,25 @@ import {
     UserCheck,
     Wallet,
     Settings,
-    MessageSquare,
     Building2
 } from "lucide-react";
+
+// Itens com "to" navegam.
+// Os sem "to" ainda não possuem tela implementada.
 
 export const menuAluno = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
         { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
-        { label: "Histórico", icon: History, to: "/historico-treinos" }
+        { label: "Próximos Treinos", icon: CalendarCheck },
+        { label: "Histórico", icon: History, to: "/historico-treinos" },
+        { label: "Progresso", icon: TrendingUp },
+        { label: "Objetivos", icon: Target }
     ],
     secondary: [
         { label: "Agendar Aula", icon: CalendarPlus, to: "/agendamento-aula" },
         { label: "Avaliação Física", icon: ClipboardList, to: "/avaliacao-fisica" },
+        { label: "Notificações", icon: Bell },
         { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
     ]
 };
@@ -41,9 +47,8 @@ export const menuProfissional = {
         { label: "Evolução", icon: TrendingUp }
     ],
     secondary: [
-        { label: "Mensagens", icon: MessageSquare },
-        { label: "Notificações", icon: Bell },
-        { label: "Perfil", icon: UserRound }
+        { label: "Notificações", icon: Bell, to: "/notificacoes-profissional" },
+        { label: "Perfil", icon: UserRound, to: "/perfil-profissional" }
     ]
 };
 
@@ -62,3 +67,4 @@ export const menuAcademia = {
         { label: "Configurações", icon: Settings }
     ]
 };
+

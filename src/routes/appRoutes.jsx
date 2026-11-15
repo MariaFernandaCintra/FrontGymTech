@@ -11,8 +11,12 @@ import DashboardAcademia from "../pages/dashboard/dashboard-academia";
 import MeusTreinos from "../pages/dashboard/meus-treinos";
 import HistoricoTreinos from "../pages/dashboard/historico-treinos";
 import PerfilAluno from "../pages/dashboard/perfil-aluno";
+import PerfilProfissional from "../pages/dashboard/perfil-profissional";
+
 import TreinosProfissional from "../pages/treinos/treinos-profissional";
 import AlunosProfissional from "../pages/alunos/alunos-profissional";
+import NotificacoesProfissional from "../pages/notificacoes/notificacoes-profissional";
+
 import AgendamentoAula from "../pages/dashboard/agendamento-aula";
 import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
 
@@ -69,6 +73,26 @@ function AppRoutes() {
           }
         />
 
+        {/* Perfil do profissional */}
+        <Route
+          path="/perfil-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <PerfilProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Notificações do profissional */}
+        <Route
+          path="/notificacoes-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <NotificacoesProfissional />
+            </PrivateRoute>
+          }
+        />
+
         {/* Dashboard da academia */}
         <Route
           path="/dashboard-academia"
@@ -109,11 +133,13 @@ function AppRoutes() {
           }
         />
 
+        {/* Agendamento de aula */}
         <Route
           path="/agendamento-aula"
           element={<AgendamentoAula />}
         />
 
+        {/* Avaliação física */}
         <Route
           path="/avaliacao-fisica"
           element={<AvaliacaoFisica />}
