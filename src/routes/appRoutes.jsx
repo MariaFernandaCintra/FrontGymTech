@@ -8,6 +8,7 @@ import ForgotPassword from "../pages/forgot-password/forgot-password";
 import DashboardAluno from "../pages/dashboard/dashboard-aluno";
 import DashboardProfissional from "../pages/dashboard/dashboard-profissional";
 import DashboardAcademia from "../pages/dashboard/dashboard-academia";
+
 import MeusTreinos from "../pages/dashboard/meus-treinos";
 import HistoricoTreinos from "../pages/dashboard/historico-treinos";
 import PerfilAluno from "../pages/dashboard/perfil-aluno";
@@ -16,6 +17,7 @@ import PerfilProfissional from "../pages/dashboard/perfil-profissional";
 import TreinosProfissional from "../pages/treinos/treinos-profissional";
 import AlunosProfissional from "../pages/alunos/alunos-profissional";
 import NotificacoesProfissional from "../pages/notificacoes/notificacoes-profissional";
+import AgendaProfissional from "../pages/agenda/agenda-profissional";
 
 import AgendamentoAula from "../pages/dashboard/agendamento-aula";
 import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
@@ -59,6 +61,16 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["profissional"]}>
               <TreinosProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Agenda do profissional */}
+        <Route
+          path="/agenda-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <AgendaProfissional />
             </PrivateRoute>
           }
         />
@@ -154,3 +166,4 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
+

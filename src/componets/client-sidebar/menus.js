@@ -42,7 +42,7 @@ export const menuProfissional = {
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-profissional" },
         { label: "Meus Alunos", icon: Users, to: "/alunos-profissional" },
         { label: "Treinos", icon: Dumbbell, to: "/treinos-profissional" },
-        { label: "Agenda", icon: CalendarCheck },
+        { label: "Agenda", icon: CalendarCheck, to: "/agenda-profissional" },
         { label: "Avaliações", icon: ClipboardList },
         { label: "Evolução", icon: TrendingUp }
     ],
