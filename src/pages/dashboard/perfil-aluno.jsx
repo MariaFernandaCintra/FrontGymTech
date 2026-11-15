@@ -28,7 +28,6 @@ function PerfilAluno() {
         email: "",
         telefone: "",
         data_nascimento: "",
-        modalidade_treino: "",
         objetivo: ""
     });
 
@@ -71,7 +70,6 @@ function PerfilAluno() {
                 email: dados.email || "",
                 telefone: dados.telefone || "",
                 data_nascimento: dados.data_nascimento?.split("T")[0] || "",
-                modalidade_treino: dados.modalidade_treino || "",
                 objetivo: dados.objetivo || ""
             });
         } catch (error) {
@@ -96,7 +94,6 @@ function PerfilAluno() {
             email: perfil.email || "",
             telefone: perfil.telefone || "",
             data_nascimento: perfil.data_nascimento?.split("T")[0] || "",
-            modalidade_treino: perfil.modalidade_treino || "",
             objetivo: perfil.objetivo || ""
         });
 
@@ -180,7 +177,6 @@ function PerfilAluno() {
                 email: resposta.data.email || "",
                 telefone: resposta.data.telefone || "",
                 data_nascimento: resposta.data.data_nascimento?.split("T")[0] || "",
-                modalidade_treino: resposta.data.modalidade_treino || "",
                 objetivo: resposta.data.objetivo || ""
             });
 
@@ -299,11 +295,6 @@ function PerfilAluno() {
                             </div>
 
                             <div className="perfil-campo">
-                                <span>Modalidade de treino</span>
-                                <strong>{perfil.modalidade_treino || "Não informado"}</strong>
-                            </div>
-
-                            <div className="perfil-campo">
                                 <span>Objetivo</span>
                                 <strong>{perfil.objetivo || "Não informado"}</strong>
                             </div>
@@ -380,15 +371,6 @@ function PerfilAluno() {
                                 />
                             </div>
 
-                            <div className="perfil-input-grupo">
-                                <label htmlFor="modalidade_treino">Modalidade de treino</label>
-                                <input
-                                    id="modalidade_treino"
-                                    name="modalidade_treino"
-                                    value={formulario.modalidade_treino}
-                                    onChange={atualizarCampo}
-                                />
-                            </div>
 
                             <div className="perfil-input-grupo">
                                 <label htmlFor="objetivo">Objetivo</label>

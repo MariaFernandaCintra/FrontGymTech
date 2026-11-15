@@ -1,3 +1,4 @@
+
 import "../client-sidebar/client-sidebar.css";
 import raioIcon from "../../assets/images/raio-icon.png";
 
@@ -7,51 +8,38 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../services/auth";
 import { menuAluno } from "./menus";
 
-
+// ITEM DO MENU
 function SidebarItem({ item }) {
-
     const Icon = item.icon;
 
     if (item.to) {
-
         return (
-
             <NavLink
                 to={item.to}
                 className={({ isActive }) =>
                     isActive ? "csb-item active" : "csb-item"
                 }
             >
-
                 <Icon size={15} />
-
-                <span>
-                    {item.label}
-                </span>
-
+                <span>{item.label}</span>
             </NavLink>
-
         );
     }
 
     return (
-
         <button type="button" className="csb-item">
-
             <Icon size={15} />
-
-            <span>
-                {item.label}
-            </span>
-
+            <span>{item.label}</span>
         </button>
-
     );
 }
 
-
-function ClientSidebar({ name, plan, menu = menuAluno }) {
-
+// SIDEBAR
+function ClientSidebar({
+    name = "Aluno",
+    plan = "",
+    menu = menuAluno
+}) {
     const navigate = useNavigate();
 
     const initials = name
@@ -61,34 +49,26 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
         .map((part) => part[0].toUpperCase())
         .join("");
 
+    // SAIR
     const handleLogout = () => {
-
         logout();
-
         navigate("/login");
-
     };
 
-
     return (
-
         <aside className="csb">
 
+            {/* LOGO */}
             <div className="csb-logo">
-
                 <div className="csb-logo-icon">
                     <img src={raioIcon} alt="GymTech" />
                 </div>
 
-                <span>
-                    GYM TECH
-                </span>
-
+                <span>GYM TECH</span>
             </div>
 
-
+            {/* MENU */}
             <nav className="csb-nav">
-
                 {menu.main.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
@@ -98,29 +78,18 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
                 {menu.secondary.map((item) => (
                     <SidebarItem key={item.label} item={item} />
                 ))}
-
             </nav>
 
-
+            {/* USUÁRIO */}
             <div className="csb-user">
-
                 <div className="csb-avatar">
                     {initials}
                 </div>
 
-
                 <div className="csb-user-info">
-
-                    <strong>
-                        {name}
-                    </strong>
-
-                    <span>
-                        {plan}
-                    </span>
-
+                    <strong>{name}</strong>
+                    <span>{plan}</span>
                 </div>
-
 
                 <button
                     type="button"
@@ -131,7 +100,6 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
                 >
                     <LogOut size={14} />
                 </button>
-
             </div>
 
         </aside>
@@ -139,3 +107,4 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
 }
 
 export default ClientSidebar;
+
