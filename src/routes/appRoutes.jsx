@@ -9,8 +9,10 @@ import DashboardProfissional from "../pages/dashboard/dashboard-profissional";
 import DashboardAcademia from "../pages/dashboard/dashboard-academia";
 import MeusTreinos from "../pages/dashboard/meus-treinos";
 import PerfilAluno from "../pages/dashboard/perfil-aluno";
+import PerfilProfissional from "../pages/dashboard/perfil-profissional";
 import TreinosProfissional from "../pages/treinos/treinos-profissional";
 import AlunosProfissional from "../pages/alunos/alunos-profissional";
+import NotificacoesProfissional from "../pages/notificacoes/notificacoes-profissional";
 
 import PrivateRoute from "./privateRoute";
 
@@ -61,6 +63,26 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["profissional"]}>
               <AlunosProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Perfil do profissional */}
+        <Route
+          path="/perfil-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <PerfilProfissional />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Notificações do profissional */}
+        <Route
+          path="/notificacoes-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <NotificacoesProfissional />
             </PrivateRoute>
           }
         />

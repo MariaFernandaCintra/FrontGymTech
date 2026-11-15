@@ -8,29 +8,6 @@ import { logout } from "../../services/auth";
 import { menuAluno } from "./menus";
 
 
-// =========================
-// ITEM DO MENU
-// =========================
-// Itens com "to" navegam. Os sem "to" ainda não têm tela:
-// quando criar a página, é só adicionar o "to" dela.
-
-const mainItems = [
-    { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
-    { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
-    { label: "Próximos Treinos", icon: CalendarCheck },
-    { label: "Histórico", icon: History },
-    { label: "Progresso", icon: TrendingUp },
-    { label: "Objetivos", icon: Target }
-];
-
-const secondaryItems = [
-    { label: "Agendar Aula", icon: CalendarPlus },
-    { label: "Avaliação Física", icon: ClipboardList },
-    { label: "Notificações", icon: Bell },
-    { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
-];
-
-
 function SidebarItem({ item }) {
 
     const Icon = item.icon;
@@ -73,12 +50,6 @@ function SidebarItem({ item }) {
 }
 
 
-// =========================
-// SIDEBAR
-// =========================
-// "menu" define os itens de cada perfil (aluno, profissional, academia).
-// Se não for passado, usa o menu do aluno.
-
 function ClientSidebar({ name, plan, menu = menuAluno }) {
 
     const navigate = useNavigate();
@@ -89,11 +60,6 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
         .slice(0, 2)
         .map((part) => part[0].toUpperCase())
         .join("");
-
-
-    // =========================
-    // SAIR
-    // =========================
 
     const handleLogout = () => {
 
@@ -108,8 +74,6 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
 
         <aside className="csb">
 
-            {/* LOGO */}
-
             <div className="csb-logo">
 
                 <div className="csb-logo-icon">
@@ -122,8 +86,6 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
 
             </div>
 
-
-            {/* MENU */}
 
             <nav className="csb-nav">
 
@@ -139,8 +101,6 @@ function ClientSidebar({ name, plan, menu = menuAluno }) {
 
             </nav>
 
-
-            {/* USUÁRIO */}
 
             <div className="csb-user">
 

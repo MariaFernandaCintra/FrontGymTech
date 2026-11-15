@@ -92,6 +92,14 @@ export function useAlunosProfissional() {
                     }),
                     api.get("/profissionais/me/reservas-aulas", {
                         params: { status: "Confirmado", limit: 500 }
+                    }).catch((err) => {
+                        // Esta rota não existe nesta versão da API (404):
+                        // segue só com os treinos, sem aulas reservadas.
+                        if (err.response?.status === 404) {
+                            return { data: { itens: [] } };
+                        }
+
+                        throw err;
                     })
                 ]);
 
