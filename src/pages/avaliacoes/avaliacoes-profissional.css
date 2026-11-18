@@ -1,0 +1,135 @@
+/* =========================
+   AVALIAÇÕES DO PROFISSIONAL
+   (a lista usa as classes trn-* da página de treinos)
+========================= */
+
+.aval-sucesso {
+    margin-bottom: 14px;
+    padding: 12px 16px;
+
+    border: 1px solid #2c3a10;
+    border-radius: 12px;
+    background: #141b08;
+
+    color: #c6ff00;
+    font-size: 12px;
+}
+
+.aval-painel {
+    margin-top: 16px;
+    padding-top: 16px;
+
+    border-top: 1px solid #1d1d1d;
+}
+
+.aval-carregando {
+    margin: 0;
+
+    color: #7d7d7d;
+    font-size: 12px;
+}
+
+
+/* ---------- formulário ---------- */
+
+.aval-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.aval-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+}
+
+.aval-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.aval-campo span {
+    color: #7d7d7d;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.aval-campo input,
+.aval-campo textarea {
+    width: 100%;
+    padding: 11px 13px;
+
+    border: 1px solid #262626;
+    border-radius: 10px;
+    background: #111111;
+
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.aval-campo input:focus,
+.aval-campo textarea:focus {
+    outline: none;
+    border-color: #c6ff00;
+}
+
+.aval-campo input::placeholder,
+.aval-campo textarea::placeholder {
+    color: #4d4d4d;
+}
+
+
+/* ---------- ficha preenchida ---------- */
+
+.aval-ficha {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.aval-medidas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.aval-medidas > div {
+    padding: 14px;
+
+    border: 1px solid #1d1d1d;
+    border-radius: 14px;
+    background: #0a0a0a;
+}
+
+.aval-medidas span,
+.aval-texto span {
+    display: block;
+    margin-bottom: 6px;
+
+    color: #7d7d7d;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.aval-medidas strong {
+    color: #fff;
+    font-size: 15px;
+}
+
+.aval-texto p {
+    margin: 0;
+
+    color: #cfcfcf;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
