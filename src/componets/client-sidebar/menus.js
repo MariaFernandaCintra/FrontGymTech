@@ -24,15 +24,11 @@ export const menuAluno = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-aluno" },
         { label: "Meus Treinos", icon: Dumbbell, to: "/meus-treinos" },
-        { label: "Próximos Treinos", icon: CalendarCheck },
         { label: "Histórico", icon: History, to: "/historico-treinos" },
-        { label: "Progresso", icon: TrendingUp },
-        { label: "Objetivos", icon: Target }
     ],
     secondary: [
         { label: "Agendar Aula", icon: CalendarPlus, to: "/agendamento-aula" },
         { label: "Avaliação Física", icon: ClipboardList, to: "/avaliacao-fisica" },
-        { label: "Notificações", icon: Bell },
         { label: "Perfil", icon: UserRound, to: "/perfil-aluno" }
     ]
 };
@@ -55,9 +51,9 @@ export const menuProfissional = {
 export const menuAcademia = {
     main: [
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-academia" },
-        { label: "Alunos", icon: Users },
-        { label: "Profissionais", icon: UserCheck },
-        { label: "Aulas", icon: CalendarCheck },
+        { label: "Alunos", icon: Users, to: "/alunos-academia" },
+        { label: "Profissionais", icon: UserCheck, to: "/profissionais-academia" },
+        { label: "Aulas", icon: CalendarCheck, to: "/aulas" },
         { label: "Relatórios", icon: TrendingUp, to: "/relatorios-academia" }
     ],
     secondary: [
