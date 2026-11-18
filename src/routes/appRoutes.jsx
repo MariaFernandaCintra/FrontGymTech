@@ -22,6 +22,9 @@ import AgendaProfissional from "../pages/agenda/agenda-profissional";
 import AgendamentoAula from "../pages/dashboard/agendamento-aula";
 import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
 
+import AlunosAcademia from "../pages/dashboard/listar-alunos";
+import ListarProfissionais from "../pages/dashboard/listar-profissionais";
+
 import PrivateRoute from "./privateRoute";
 
 function AppRoutes() {
@@ -155,6 +158,25 @@ function AppRoutes() {
         <Route
           path="/avaliacao-fisica"
           element={<AvaliacaoFisica />}
+        />
+
+        {/* Alunos da academia */}
+        <Route
+          path="/alunos-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <AlunosAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profissionais-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <ListarProfissionais />
+            </PrivateRoute>
+          }
         />
 
         {/* Qualquer rota inexistente volta para o login */}
