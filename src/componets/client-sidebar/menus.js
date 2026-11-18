@@ -53,8 +53,7 @@ export const menuAcademia = {
         { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard-academia" },
         { label: "Alunos", icon: Users, to: "/alunos-academia" },
         { label: "Profissionais", icon: UserCheck, to: "/profissionais-academia" },
-        { label: "Aulas", icon: CalendarCheck },
-        { label: "Financeiro", icon: Wallet },
+        { label: "Aulas", icon: CalendarCheck, to: "/aulas" },
         { label: "Relatórios", icon: TrendingUp }
     ],
     secondary: [
