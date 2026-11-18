@@ -24,6 +24,7 @@ import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
 
 import AlunosAcademia from "../pages/dashboard/listar-alunos";
 import ListarProfissionais from "../pages/dashboard/listar-profissionais";
+import ListarAulas from "../pages/dashboard/listar-aulas";
 
 import PrivateRoute from "./privateRoute";
 
@@ -188,6 +189,8 @@ function AppRoutes() {
             </PrivateRoute>
           }
         />
+
+        <Route path="/aulas" element={<ListarAulas />} />
 
         {/* Qualquer rota inexistente volta para o login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
