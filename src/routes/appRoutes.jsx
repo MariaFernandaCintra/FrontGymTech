@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/login/login";
@@ -18,6 +17,7 @@ import TreinosProfissional from "../pages/treinos/treinos-profissional";
 import AlunosProfissional from "../pages/alunos/alunos-profissional";
 import NotificacoesProfissional from "../pages/notificacoes/notificacoes-profissional";
 import AgendaProfissional from "../pages/agenda/agenda-profissional";
+import AvaliacoesProfissional from "../pages/avaliacoes/avaliacoes-profissional";
 
 import AgendamentoAula from "../pages/dashboard/agendamento-aula";
 import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
@@ -105,6 +105,16 @@ function AppRoutes() {
           }
         />
 
+        {/* Avaliações do profissional */}
+        <Route
+          path="/avaliacoes-profissional"
+          element={
+            <PrivateRoute allowedRoles={["profissional"]}>
+              <AvaliacoesProfissional />
+            </PrivateRoute>
+          }
+        />
+
         {/* Dashboard da academia */}
         <Route
           path="/dashboard-academia"
@@ -166,4 +176,3 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
-

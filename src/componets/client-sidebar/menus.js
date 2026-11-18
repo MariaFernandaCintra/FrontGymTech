@@ -43,8 +43,8 @@ export const menuProfissional = {
         { label: "Meus Alunos", icon: Users, to: "/alunos-profissional" },
         { label: "Treinos", icon: Dumbbell, to: "/treinos-profissional" },
         { label: "Agenda", icon: CalendarCheck, to: "/agenda-profissional" },
-        { label: "Avaliações", icon: ClipboardList },
-        { label: "Evolução", icon: TrendingUp }
+        { label: "Avaliações", icon: ClipboardList, to: "/avaliacoes-profissional" },
+        
     ],
     secondary: [
         { label: "Notificações", icon: Bell, to: "/notificacoes-profissional" },
