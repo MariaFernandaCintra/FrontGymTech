@@ -54,12 +54,12 @@ export const menuAcademia = {
         { label: "Alunos", icon: Users, to: "/alunos-academia" },
         { label: "Profissionais", icon: UserCheck, to: "/profissionais-academia" },
         { label: "Aulas", icon: CalendarCheck, to: "/aulas" },
-        { label: "Relatórios", icon: TrendingUp }
+        { label: "Relatórios", icon: TrendingUp, to: "/relatorios-academia" }
     ],
     secondary: [
-        { label: "Unidade", icon: Building2 },
-        { label: "Notificações", icon: Bell },
-        { label: "Configurações", icon: Settings }
+        { label: "Unidade", icon: Building2, to: "/unidade-academia" },
+        { label: "Notificações", icon: Bell, to: "/notificacoes-academia" },
+        { label: "Configurações", icon: Settings, to: "/configuracoes-academia" }
     ]
 };
 

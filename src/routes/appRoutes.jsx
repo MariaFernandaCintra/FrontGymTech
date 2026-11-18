@@ -19,6 +19,11 @@ import NotificacoesProfissional from "../pages/notificacoes/notificacoes-profiss
 import AgendaProfissional from "../pages/agenda/agenda-profissional";
 import AvaliacoesProfissional from "../pages/avaliacoes/avaliacoes-profissional";
 
+import ConfiguracoesAcademia from "../pages/configuracoes/configuracoes-academia";
+import NotificacoesAcademia from "../pages/notificacoes/notificacoes-academia";
+import UnidadeAcademia from "../pages/unidade/unidade-academia";
+import RelatoriosAcademia from "../pages/relatorios/relatorios-academia";
+
 import AgendamentoAula from "../pages/dashboard/agendamento-aula";
 import AvaliacaoFisica from "../pages/dashboard/avaliacao-fisica";
 
@@ -125,6 +130,46 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["academia"]}>
               <DashboardAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Configurações da academia */}
+        <Route
+          path="/configuracoes-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <ConfiguracoesAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Notificações da academia */}
+        <Route
+          path="/notificacoes-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <NotificacoesAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Unidade da academia */}
+        <Route
+          path="/unidade-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <UnidadeAcademia />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Relatórios da academia */}
+        <Route
+          path="/relatorios-academia"
+          element={
+            <PrivateRoute allowedRoles={["academia"]}>
+              <RelatoriosAcademia />
             </PrivateRoute>
           }
         />
